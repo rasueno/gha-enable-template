@@ -1,0 +1,19 @@
+name: oneclick-cicd-nonprod
+on:
+  push:
+    branches:
+    - master
+    - develop*
+    - release*
+  workflow_dispatch:
+jobs:
+  call-ci-workflow:
+    uses: actions/dummy
+    with:
+      tag: "${{ github.ref_name }}-${{ github.run_number }}"
+      build_type: maven
+      javaVersion: {{JAVA_VERSION}}
+      branch_name: "${{ github.ref_name }}"
+    secrets:
+      PROP_USER: ${{ secrets.PROP_USER }}
+      PROP_PASS: ${{ secrets.PROP_PASS }}

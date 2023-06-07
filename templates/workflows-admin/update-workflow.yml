@@ -1,0 +1,22 @@
+name: update-workflow
+on:
+  workflow_dispatch:
+    inputs: 
+      repo_name:
+        type: string
+        description: 'Name of repo to udpate'    
+        required: true
+
+jobs:
+
+  action:
+    runs-on: [ -------- ]
+    steps:
+      - uses: actions/checkout@v2
+        name: action
+      - run: |
+          python -m pip install -r repo_req.txt
+          python repo_pull.py --repo $REPO_OPTION_CALL
+        env:
+          RAFFY_GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          REPO_OPTION_CALL: ${{ github.event.inputs.repo_name }}
